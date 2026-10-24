@@ -1,0 +1,90 @@
+### ─────────────────────────────────────────────────────────────
+### Quran Centers API — manual test script
+### Works with the VS Code "REST Client" extension (humao.rest-client)
+### and JetBrains HTTP Client. Click "Send Request" above each block.
+### Run them top-to-bottom: the create request stores the new id in {{centerId}}.
+### ─────────────────────────────────────────────────────────────
+
+@baseUrl = http://localhost:5000
+@api = {{baseUrl}}/api/v1/centers
+@adminSecret = change-me-to-a-long-random-string
+
+### 1. Health check
+GET {{baseUrl}}/health
+
+### 2. Create a center (admin)
+# @name createCenter
+POST {{api}}
+Content-Type: application/json
+x-admin-secret: {{adminSecret}}
+
+{
+  "name": "دار الإخلاص لتحفيظ القرآن",
+  "address": "شارع التحرير، بجوار مسجد النور",
+  "region": "القاهرة",
+  "whatsappNumber": "+20 100 123 4567",
+  "details": "حلقات للأطفال والكبار، تجويد وتحفيظ بالسند المتصل."
+}
+
+### Captured id from the response above
+@centerId = {{createCenter.response.body.data.id}}
+
+### 3. Create WITHOUT admin secret → expect 401
+POST {{api}}
+Content-Type: application/json
+
+{ "name": "x", "address": "x", "region": "x", "whatsappNumber": "201000000000" }
+
+### 4. Create with missing fields → expect 400 + details[]
+POST {{api}}
+Content-Type: application/json
+x-admin-secret: {{adminSecret}}
+
+{ "name": "دار ناقصة" }
+
+### 5. List all centers (default: page 1, limit 20, newest first)
+GET {{api}}
+
+### 6. Filter by region
+GET {{api}}?region=القاهرة
+
+### 7. Search (matches name/address/region/details, tolerant of أ/ا, ة/ه, ى/ي)
+GET {{api}}?search=الاخلاص
+
+### 8. Combined filter + pagination + sorting
+GET {{api}}?region=القاهرة&search=تحفيظ&page=1&limit=10&sort=popular
+
+### 9. Distinct regions (for a dropdown)
+GET {{api}}/regions
+
+### 10. Get one center → cardClicks +1
+GET {{api}}/{{centerId}}
+
+### 11. Get one center WITHOUT counting a view
+GET {{api}}/{{centerId}}?track=false
+
+### 12. Track card click explicitly
+POST {{api}}/{{centerId}}/card-click
+
+### 13. Track WhatsApp click
+POST {{api}}/{{centerId}}/whatsapp-click
+
+### 14. Partial update (admin)
+PATCH {{api}}/{{centerId}}
+Content-Type: application/json
+x-admin-secret: {{adminSecret}}
+
+{
+  "details": "تمت إضافة حلقات مسائية للنساء.",
+  "whatsappNumber": "201112223334"
+}
+
+### 15. Invalid id → expect 400
+GET {{api}}/not-a-valid-id
+
+### 16. Unknown id → expect 404
+GET {{api}}/000000000000000000000000
+
+### 17. Delete (admin)
+DELETE {{api}}/{{centerId}}
+x-admin-secret: {{adminSecret}}

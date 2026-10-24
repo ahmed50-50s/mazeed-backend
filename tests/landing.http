@@ -1,0 +1,129 @@
+### ─────────────────────────────────────────────────────────────
+### Landing content + analytics — manual test script
+### Works with the VS Code "REST Client" extension (humao.rest-client)
+### and JetBrains HTTP Client. Run `npm run seed` first so there is content.
+### ─────────────────────────────────────────────────────────────
+
+@baseUrl = http://localhost:5000
+@api = {{baseUrl}}/api/v1
+@adminSecret = change-me-to-a-long-random-string
+
+### 1. Everything the home + about pages render (public, cached 60 s)
+GET {{api}}/landing-data
+
+### 2. Settings (public)
+GET {{api}}/settings
+
+### 3. Set the academy WhatsApp number and email (admin) — deep merge, other settings are kept
+PATCH {{api}}/settings
+Content-Type: application/json
+x-admin-secret: {{adminSecret}}
+
+{
+  "contact": {
+    "whatsappNumber": "+20 100 123 4567",
+    "email": "info@mazeed.academy",
+    "socialLinks": { "facebook": "https://facebook.com/mazeed" }
+  }
+}
+
+### 4. Update the stats card (admin) — arrays are replaced as a whole
+PATCH {{api}}/settings
+Content-Type: application/json
+x-admin-secret: {{adminSecret}}
+
+{
+  "stats": [
+    { "icon": "faCalendarDays", "value": 3, "label": "حلقات يومية منتظمة" },
+    { "icon": "faCircleCheck", "value": 5, "label": "فروع معتمدة" },
+    { "icon": "faUsers", "value": 25, "label": "محفظ ومحفظة", "key": "teachers" }
+  ]
+}
+
+### 5. Public lists
+GET {{api}}/services
+
+###
+GET {{api}}/pricing-plans
+
+###
+GET {{api}}/showcase?tab=reports
+
+###
+GET {{api}}/testimonials
+
+### 6. Admin list including hidden items
+GET {{api}}/services?includeInactive=true
+x-admin-secret: {{adminSecret}}
+
+### 7. Create a service (admin)
+# @name createService
+POST {{api}}/services
+Content-Type: application/json
+x-admin-secret: {{adminSecret}}
+
+{
+  "icon": "faBookQuran",
+  "badge": "جديد",
+  "title": "حلقات المراجعة الصيفية",
+  "description": "برنامج مكثف لتثبيت المحفوظ خلال الإجازة الصيفية.",
+  "link": "سجّل الآن",
+  "order": 10
+}
+
+###
+@serviceId = {{createService.response.body.data.id}}
+
+### 8. Hide it (admin)
+PATCH {{api}}/services/{{serviceId}}
+Content-Type: application/json
+x-admin-secret: {{adminSecret}}
+
+{ "isActive": false }
+
+### 9. Delete it (admin)
+DELETE {{api}}/services/{{serviceId}}
+x-admin-secret: {{adminSecret}}
+
+### 10. Add a certificate photo to the showcase (admin)
+POST {{api}}/showcase
+Content-Type: application/json
+x-admin-secret: {{adminSecret}}
+
+{
+  "tab": "certificates",
+  "title": "إجازة برواية ورش",
+  "caption": "بالسند المتصل",
+  "image": "https://cdn.example.com/certificates/warsh.webp"
+}
+
+### 11. Page view (public) — what the site sends on each route change
+POST {{api}}/analytics/events
+Content-Type: application/json
+
+{ "eventType": "page_view", "pagePath": "/about" }
+
+### 12. WhatsApp click on a service (public) — use a real id from GET /services
+POST {{api}}/analytics/events
+Content-Type: application/json
+
+{ "eventType": "service_whatsapp_click", "serviceType": "service", "serviceId": "PUT_A_SERVICE_ID_HERE", "pagePath": "/" }
+
+### 12b. WhatsApp click on a general button (public)
+POST {{api}}/analytics/events
+Content-Type: application/json
+
+{ "eventType": "general_whatsapp_click", "placement": "hero", "pagePath": "/" }
+
+### 13. Personal data is rejected → expect 400
+POST {{api}}/analytics/events
+Content-Type: application/json
+
+{ "eventType": "page_view", "pagePath": "/", "name": "أحمد", "phone": "201112223333" }
+
+### 14. Stats summary (admin)
+GET {{api}}/analytics/summary
+x-admin-secret: {{adminSecret}}
+
+### 15. Stats summary without the secret → expect 401
+GET {{api}}/analytics/summary

@@ -1,0 +1,286 @@
+import { EMAIL, SOCIAL_LINKS, WHATSAPP_NUMBER } from '../config'
+
+// Built-in site content, in the same shape as GET /api/v1/landing-data.
+// Pages render this immediately, then swap in the API data once it arrives; if the API is down, this stays.
+// Icons are names resolved by src/lib/icons.js.
+export const defaults = {
+  contact: {
+    whatsappNumber: WHATSAPP_NUMBER,
+    email: EMAIL,
+    socialLinks: SOCIAL_LINKS,
+  },
+
+  whatsappMessages: {
+    footer: 'السلام عليكم، أرغب في الاستفسار عن أكاديمية مزيد',
+    contactInquiry: 'السلام عليكم، أرغب في الاستفسار عن الحلقات في أكاديمية مزيد',
+    contactTrial: 'السلام عليكم، أرغب في حجز الحصة التجريبية المجانية',
+    aboutTrial: 'السلام عليكم، أريد حجز حصة تجريبية مجانية',
+    trialInquiry:
+      'السلام عليكم، عندي استفسار عن الحلقات في أكاديمية مزيد، وأود حجز الحصة التجريبية المجانية. ممكن أعرف التفاصيل والمواعيد المتاحة؟ شكرًا.',
+  },
+
+  // Academy numbers, shown in the stats card and the about page teachers grid
+  stats: [
+    { icon: 'faCalendarDays', value: 100, label: 'حلقة يومية' },
+    { icon: 'faUserGraduate', value: 500, label: 'طالب وطالبة' },
+    { icon: 'faUsers', value: 100, label: 'محفظ ومحفظة', key: 'teachers' },
+  ],
+
+  home: {
+    aboutFeatures: [
+      'تحفيظ القرآن الكريم والعلوم الشرعية',
+      'تأسيس الأطفال عربي وإنجليزي',
+      'حلقات أونلاين لكل الأعمار ومن الجنسين',
+    ],
+    whyUsFeatures: [
+      { icon: 'faGraduationCap', title: 'معلمون ومعلمات مؤهلون', description: 'ذوو خبرة طويلة في التحفيظ والتدريس.' },
+      { icon: 'faUserGroup', title: 'حلقات فردية وجماعية', description: 'اختر النظام الذي يناسبك.' },
+      { icon: 'faLaptop', title: 'وسائل حديثة وأساليب أصيلة', description: 'التقنية جنبًا إلى جنب مع الطرق التقليدية.' },
+      { icon: 'faChildren', title: 'جميع الأعمار ومن الجنسين', description: 'معلمات للطالبات ومعلمون للطلاب.' },
+      { icon: 'faClock', title: 'مرونة في المواعيد', description: 'مواعيد تناسب ظروف الطالب أينما كان.' },
+      { icon: 'faRoute', title: 'خطة ومنهجية واضحة', description: 'تعرف من البداية إلى أين تسير.' },
+      { icon: 'faClipboard', title: 'متابعة وتقارير دورية', description: 'تقارير منتظمة عن مستوى الطالب وتقدمه.' },
+      { icon: 'faComments', title: 'تواصل مستمر مع أولياء الأمور', description: 'أنت على اطلاع دائم بكل خطوة.' },
+      { icon: 'faWallet', title: 'رسوم تناسب الجميع', description: 'والسداد بعملة دولة إقامة الطالب.' },
+      { icon: 'faGift', title: 'حلقة تجريبية مجانية', description: 'جرّب قبل أن تشترك، بلا أي التزام.' },
+    ],
+    contactPerks: [
+      'حصة أولى مجانية 100% بدون أي التزام مسبق',
+      'إمكانية اختيار معلم أو معلمة للطفل',
+      'تقييم فوري شامل لمستوى التلاوة',
+    ],
+  },
+
+  about: {
+    highlights: ['جميع الأعمار ومن الجنسين', 'حلقات فردية وجماعية', 'مرونة في المواعيد', 'حلقة تجريبية مجانية'],
+    cards: [
+      {
+        icon: 'faEye',
+        title: 'رؤيتنا',
+        text: 'أن نكون صرحًا قرآنيًا رائدًا برؤية عصرية، يُخرّج أجيالًا تحمل كتاب الله حفظًا وتلاوةً وفهمًا وعملًا.',
+      },
+      {
+        icon: 'faFlag',
+        title: 'رسالتنا',
+        text: 'تعليم القرآن الكريم وعلومه لجميع الأعمار ومن الجنسين، على أيدي معلمين مؤهلين، بخطة واضحة ومتابعة مستمرة ومرونة تناسب ظروف كل طالب أينما كان.',
+        featured: true,
+      },
+      {
+        icon: 'faBullseye',
+        title: 'أهدافنا',
+        list: [
+          'تحفيظ القرآن الكريم بإتقان',
+          'تصحيح التلاوة وإتقان التجويد والمتون',
+          'منح الإجازات في القراءات العشر والمتون والعلوم الشرعية',
+          'تأسيس الأطفال عربي وإنجليزي',
+        ],
+      },
+    ],
+    values: [
+      { icon: 'faHeart', title: 'الإخلاص', text: 'نعلّم كتاب الله ابتغاء وجهه، ونغرس في طلابنا حب القرآن قبل حفظه.' },
+      { icon: 'faGem', title: 'الإتقان', text: 'لا ننتقل إلى جديد قبل ضبط ما سبق، تلاوةً وتجويدًا وحفظًا.' },
+      { icon: 'faScroll', title: 'الأمانة العلمية', text: 'نلتزم بالتلقي الصحيح، ونمنح الإجازات بالسند المتصل لمن استحقها.' },
+      { icon: 'faHandHoldingHeart', title: 'الرفق والتيسير', text: 'نراعي قدرات كل طالب وظروفه، ونصمم له خطة تناسبه.' },
+      { icon: 'faChartLine', title: 'المتابعة المستمرة', text: 'تقارير دورية توضح مستوى الطالب وتقدّمه خطوة بخطوة.' },
+      { icon: 'faPeopleRoof', title: 'الشراكة مع الأسرة', text: 'تواصل مستمر مع أولياء الأمور، فهم شركاؤنا في رحلة أبنائهم.' },
+    ],
+    steps: [
+      { icon: 'faGift', title: 'حلقة تجريبية مجانية', text: 'نتعرف على الطالب ونحدد مستواه بدقة.' },
+      { icon: 'faRoute', title: 'خطة مخصصة', text: 'مسار تعليمي يناسب مستواه ووقته وأهدافه.' },
+      { icon: 'far:faCalendarCheck', title: 'حلقات منتظمة', text: 'فردية أو جماعية، في مواعيد مرنة تناسبه.' },
+      { icon: 'faClipboard', title: 'متابعة وتقارير', text: 'تقارير دورية وتواصل مستمر مع ولي الأمر.' },
+      { icon: 'faAward', title: 'الإتقان والإجازة', text: 'ختم الحفظ ونيل الإجازة بالسند المتصل.' },
+    ],
+    teacherTags: ['مؤهلون علميًا', 'مُجازون بالسند', 'من الجنسين'],
+    // Local photos at src/assets/teachers/1.jpg … 5.jpg, or full URLs from the API
+    teacherPhotos: ['teachers/1', 'teachers/2', 'teachers/3', 'teachers/4', 'teachers/5'],
+  },
+
+  // Set `video` / `poster` / `audio` to URLs (the API does this once media is uploaded)
+  footerMedia: {
+    featuredVideo: { title: 'براعم مزيد يتلون كتاب الله', video: null, poster: null },
+    tracks: [
+      { title: 'سورة الفاتحة', reciter: 'طالب من البراعم', audio: null },
+      { title: 'سورة الإخلاص', reciter: 'طالبة من البراعم', audio: null },
+      { title: 'سورة الكوثر', reciter: 'طالب من البراعم', audio: null },
+    ],
+  },
+
+  services: [
+    {
+      icon: 'faBookQuran',
+      badge: 'حفظ متقن',
+      title: 'تحفيظ القرآن الكريم',
+      description: 'حلقات حفظ ومراجعة للمبتدئين والمتقدمين، بخطة فردية تناسب قدرة كل طالب مع متابعة مستمرة وتثبيت للمحفوظ.',
+      link: 'ابدأ رحلة الحفظ',
+    },
+    {
+      icon: 'faMicrophoneLines',
+      badge: 'تلاوة صحيحة',
+      title: 'تصحيح التلاوة',
+      description: 'ضبط مخارج الحروف وصفاتها، وتخليص التلاوة من اللحن الجلي والخفي بالتطبيق العملي المستمر.',
+      link: 'صحّح تلاوتك الآن',
+    },
+    {
+      icon: 'faScroll',
+      badge: 'دراسة منهجية',
+      title: 'إتقان التجويد والمتون',
+      description: 'شرح أحكام التجويد ودراسة المتون المعتمدة كالتحفة والجزرية، مع ربط القواعد بالأداء العملي.',
+      link: 'تعرّف على المنهج',
+    },
+    {
+      icon: 'faBookOpen',
+      badge: 'تأصيل علمي',
+      title: 'العلوم الشرعية الميسرة',
+      description: 'دروس مبسطة في العقيدة والفقه والسيرة النبوية والآداب الإسلامية، بأسلوب يناسب جميع الأعمار.',
+      link: 'استكشف الدروس',
+    },
+    {
+      icon: 'faAward',
+      badge: 'سند متصل',
+      title: 'الإجازات في القراءات العشر',
+      description: 'قراءة وإقراء بالسند المتصل إلى النبي ﷺ في القراءات العشر الصغرى والكبرى، على أيدي مجازين متقنين.',
+      link: 'اعرف شروط الإجازة',
+      featured: true,
+    },
+    {
+      icon: 'faChildReaching',
+      badge: 'للأطفال',
+      title: 'تأسيس الأطفال عربي وإنجليزي',
+      description: 'منهج تأسيسي في القراءة والكتابة باللغتين العربية والإنجليزية، بأساليب تفاعلية محببة للأطفال.',
+      link: 'سجّل طفلك الآن',
+    },
+    {
+      icon: 'faLayerGroup',
+      badge: 'لكل الأعمار',
+      title: 'مناهج تناسب جميع المستويات',
+      description: 'من المستوى التمهيدي للأطفال والمبتدئين وصولًا إلى مسارات الإتقان والإجازة، للكبار والصغار من الجنسين.',
+      link: 'حدد مستواك',
+    },
+  ],
+
+  // The featured plan sits in the middle column
+  plans: [
+    {
+      icon: 'faUserGroup',
+      label: 'باقة الإخوة الثنائية',
+      title: 'خصم 10% لطالبين',
+      description: 'عند اشتراك طالبين من أسرة واحدة في الأكاديمية.',
+      price: { before: 'خصم', value: '10%', after: 'شهريًا' },
+      note: 'خصم دائم طوال فترة الاستمرار بالدراسة',
+      features: ['مرونة استبدال المواعيد خلال الشهر', 'حلقة مشتركة أو حصص فردية منفصلة', 'تقرير شهري تفصيلي عن تقدم كل طالب'],
+      cta: 'تفعيل باقة الأخوين',
+    },
+    {
+      icon: 'faCalendarCheck',
+      label: 'اشتراك الفصول',
+      title: 'شهر مجاني كامل',
+      description: 'عند دفع اشتراك 3 شهور مقدمًا لأي مسار قرآني.',
+      price: { value: '4', after: 'شهور', suffix: 'بسعر 3 شهور فقط' },
+      note: 'توفير يصل إلى 25% من الرسوم الإجمالية',
+      features: [
+        'تثبيت نفس المعلم المفضل طوال المدة',
+        'تقارير أسبوعية تفصيلية ومتابعة دورية',
+                'شهادة إنجاز ومكافأة تحفيزية بنهاية الدورة',
+      ],
+      cta: 'اشترك الآن واستفد من العرض',
+      featured: true,
+    },
+    {
+      icon: 'faPeopleRoof',
+      label: 'باقة الأسرة الكبرى',
+      title: 'خصم 15% للإخوة',
+      description: 'عند اشتراك 3 طلاب من أسرة واحدة معًا في أي مسار.',
+      price: { before: 'خصم', value: '15%', after: 'شهريًا مستمر' },
+      note: 'يطبق على إجمالي الفاتورة الشهرية للأسرة',
+      features: [
+        'تنسيق مواعيد موحدة أو منفصلة حسب الرغبة',
+        'مشرف تعليمي موحد لمتابعة الأسرة وتواصل سلس',
+        'جلسات تأسيس عربي أو قرآن لكل طفل بحسب مستواه',
+      ],
+      cta: 'تفعيل خصم الإخوة الثلاثة',
+    },
+  ],
+
+  showcase: {
+    tabs: [
+      {
+        id: 'reports',
+        label: 'تقارير الطلاب الدورية',
+        icon: 'faFileLines',
+        items: [
+          {
+            title: 'تقرير المتابعة الشهري',
+            icon: 'faCalendarDays',
+            period: 'كل شهر',
+            caption: 'مستوى الحفظ والمراجعة والالتزام بالحضور',
+            fields: [
+              ['الحفظ الجديد', 'سورة الملك'],
+              ['المراجعة', 'جزء عمّ كاملًا'],
+              ['الحضور', 'منتظم'],
+            ],
+            note: 'تقدم ملحوظ هذا الشهر، نوصي بالمراجعة اليومية.',
+            image: null,
+          },
+          {
+            title: 'تقرير تقييم التلاوة',
+            icon: 'faMicrophoneLines',
+            period: 'كل أسبوعين',
+            caption: 'ملاحظات على المخارج وأحكام التجويد',
+            fields: [
+              ['مخارج الحروف', 'متقنة'],
+              ['أحكام التجويد', 'جيدة جدًا'],
+              ['الطلاقة', 'ممتازة'],
+            ],
+            note: 'أداء متقن، مع التركيز على أحكام المد في الأسبوع القادم.',
+            image: null,
+          },
+          {
+            title: 'تقرير الإنجاز الفصلي',
+            icon: 'faTrophy',
+            period: 'نهاية كل فصل',
+            caption: 'ملخص تقدم الطالب وخطة المرحلة القادمة',
+            fields: [
+              ['تم إنجازه', 'جزء عمّ وتبارك'],
+              ['التقدير', 'ممتاز'],
+              ['المرحلة القادمة', 'جزء قد سمع'],
+            ],
+            note: 'التزام رائع طوال الفصل، بارك الله فيه.',
+            image: null,
+          },
+        ],
+      },
+      {
+        id: 'recitations',
+        label: 'تلاوات صوتية للأطفال',
+        icon: 'faMicrophoneLines',
+        items: [
+          { title: 'سورة الفاتحة', caption: 'تلاوة طالب من البراعم', audio: null },
+          { title: 'سورة الإخلاص', caption: 'تلاوة طالبة من البراعم', audio: null },
+          { title: 'سورة الناس', caption: 'تلاوة طالب من البراعم', audio: null },
+        ],
+      },
+      {
+        id: 'certificates',
+        label: 'شهادات الإجازة والتكريم',
+        icon: 'faAward',
+        items: [
+          { title: 'إجازة بالسند المتصل', caption: 'برواية حفص عن عاصم', image: null },
+          { title: 'شهادة إتمام حفظ جزء عمّ', caption: 'تكريم لإتمام الحفظ مع الإتقان', image: null },
+          { title: 'شهادة تكريم المتفوقين', caption: 'تقديرًا للتميز والمثابرة', image: null },
+        ],
+      },
+    ],
+  },
+
+  // Set `image` to a chat screenshot URL for each card
+  testimonials: [
+    { role: 'ولي أمر', image: null },
+    { role: 'ولية أمر', image: null },
+    { role: 'طالب', image: null },
+    { role: 'ولي أمر', image: null },
+    { role: 'طالبة', image: null },
+    { role: 'ولية أمر', image: null },
+  ],
+
+}
