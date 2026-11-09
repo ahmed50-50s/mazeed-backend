@@ -9,6 +9,7 @@ import centerRoutes from './routes/centerRoutes.js';
 import landingRoutes from './routes/landingRoutes.js';
 import analyticsRoutes from './routes/analyticsRoutes.js';
 import contentRouter from './routes/contentRouter.js';
+import mediaRoutes from './routes/mediaRoutes.js';
 import {
   pricingPlanController,
   serviceController,
@@ -42,6 +43,7 @@ app.get('/health', (req, res) => {
   });
 });
 
+app.use('/api/v1/media', mediaRoutes);
 app.use('/api/v1', apiLimiter);
 app.use('/api/v1', landingRoutes);
 app.use('/api/v1/centers', centerRoutes);
