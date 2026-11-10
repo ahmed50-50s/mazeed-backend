@@ -44,11 +44,16 @@ if (nodeEnv !== "test")
 // Static files for uploaded media
 app.use("/uploads", express.static(uploadPath));
 
+app.get("/", (req, res) => {
+  res.json({ success: true, name: "Mazeed API", health: "/health", api: "/api/v1" });
+});
+
 app.get("/health", (req, res) => {
-  res.json({
-    success: true,
-    status: "ok",
-    db: mongoose.connection.readyState === 1 ? "connected" : "disconnected",
+  const dbConnected = mongoose.connection.readyState === 1;
+  res.status(dbConnected ? 200 : 503).json({
+    success: dbConnected,
+    status: dbConnected ? "ok" : "degraded",
+    db: dbConnected ? "connected" : "disconnected",
   });
 });
 

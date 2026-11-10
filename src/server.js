@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { port } from './config/env.js';
+import { host, port } from './config/env.js';
 import connectDB from './config/db.js';
 import app from './app.js';
 
@@ -11,8 +11,8 @@ async function start() {
     process.exit(1);
   }
 
-  const server = app.listen(port, () => {
-    console.log(`Server running on http://localhost:${port}`);
+  const server = app.listen(port, host, () => {
+    console.log(`Server listening on ${host}:${port}`);
   });
 
   const shutdown = (signal) => {
