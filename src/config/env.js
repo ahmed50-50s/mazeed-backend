@@ -21,3 +21,10 @@ export const corsOrigins = (process.env.CORS_ORIGINS || '*')
   .split(',')
   .map((origin) => origin.trim())
   .filter(Boolean);
+
+// Where uploaded media is stored on disk. Point it outside the app folder in production
+// (e.g. /home/<user>/mazeed-uploads) so a redeploy does not wipe the files.
+export const uploadDir = process.env.UPLOAD_DIR || 'uploads';
+// Public base URL of this API, used to build absolute links to uploaded files
+// (e.g. https://back.mazeed-academy.com). Defaults to the request's own host.
+export const publicUrl = (process.env.PUBLIC_URL || '').replace(/\/+$/, '');
